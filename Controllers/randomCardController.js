@@ -1,7 +1,10 @@
 
 //Ohm
 // import cardDeck from './cardDeck.json' assert {type: 'json'};
-const cardDeck = require('./cardDeck.json')
+const path = require('path');
+const cardDeck = require('./cardDeck.json');
+const fs = require('fs');
+const { error } = require('console');
 
 const getRandom = (excludeNumbers = []) => {
 
@@ -38,6 +41,26 @@ const randomTarotCard = (req, res) => {
     const excludeCards = [2,4,6,8,10];
     const randomCard = getRandom(excludeCards);
     res.json(randomCard); 
+    
 };
 
-module.exports = { randomTarotCard };
+
+const imagePath = path.join(__dirname, '../deck');
+
+const getPicture = (req, res) => {
+    const imageName = req.params.imageName + ".jpg";
+    const imagePathFull = path.join(imagePath, imageName);
+    // res.send({
+    //     imageName: imagePathFull    
+    // })
+
+    fs.access(imagePathFull, fs.constants.F_OK, (err) =>{
+        if(err){
+            res.send(err)
+        }else{
+            res.sendFile(imagePathFull);
+        }
+    }); 
+}
+
+module.exports = { randomTarotCard , getPicture};
