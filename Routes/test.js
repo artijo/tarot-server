@@ -1,10 +1,10 @@
-import express from 'express';
+const express = require('express');
 
 // Import the controller
-import { TestController } from '../Controllers/testController.js';
+const {TestController} = require('../Controllers/testController');
 
 // import the middleware
-import { testmiddleware } from '../Middlewares/testMiddleware.js';
+const { testmiddleware } = require('../Middlewares/testMiddleware');
 
 
 const router = express.Router();
@@ -12,4 +12,4 @@ const router = express.Router();
 // Use middleware and controller
 router.get('/', testmiddleware ,TestController);
 
-export default router;
+module.exports = router;

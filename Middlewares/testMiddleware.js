@@ -3,4 +3,4 @@ function testmiddleware(req, res, next) {
   next();
 }
 
-export { testmiddleware };
+module.exports = { testmiddleware };
