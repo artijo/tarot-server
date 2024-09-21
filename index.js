@@ -3,11 +3,19 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
+const cors = require('cors');
+
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
