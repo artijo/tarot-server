@@ -4,8 +4,6 @@
 const path = require('path');
 const cardDeck = require('./cardDeck.json');
 const fs = require('fs');
-const { error } = require('console');
-
 const getRandom = (excludeNumbers = []) => {
 
     // อันเก่า
@@ -45,7 +43,7 @@ const randomTarotCard = (req, res) => {
 };
 
 
-const imagePath = path.join(__dirname, '../deck');
+const imagePath = path.join(__dirname, '../public/img/deck');
 
 const getPicture = (req, res) => {
     const imageName = req.params.imageName + ".jpg";

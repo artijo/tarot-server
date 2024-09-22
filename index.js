@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const testRoute = require('./Routes/test.js');
-const randomCard = require('./Routes/randomCard.js'); //Ohm
 const cors = require('cors');
 
+// import routes here
+const testRoute = require('./Routes/test.js');
+const randomCard = require('./Routes/randomCard.js'); //Ohm
 
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors({
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+// use routes here
 app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
 

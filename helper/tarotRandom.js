@@ -1,4 +1,4 @@
-import cardDeck from './cardDeck.json' assert {type: 'json'};
+import cardDeck from '../Assets/cardDeck.json' assert {type: 'json'};
 
 const getRandom = (excludeNumbers = []) => {
 
