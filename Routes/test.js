@@ -1,7 +1,7 @@
 const express = require('express');
 
 // Import the controller
-const { TestController } = require('../Controllers/testController');
+const {TestController} = require('../Controllers/testController');
 
 // import the middleware
 const { testmiddleware } = require('../Middlewares/testMiddleware');
