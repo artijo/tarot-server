@@ -24,4 +24,4 @@ const getRandomPredictions = () => {
     return Predictions;
 }
 
-console.log(getRandomPredictions());
+module.exports = { getRandomPredictions }

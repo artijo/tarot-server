@@ -1,4 +1,4 @@
-import cardDeck from '../Assets/cardDeck.json' assert {type: 'json'};
+const cardDeck = require('../Assets/cardDeck.json')
 
 const getRandom = (excludeNumbers = []) => {
 

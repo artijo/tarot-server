@@ -6,6 +6,7 @@ const cors = require('cors');
 // import routes here
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
+const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 // use routes here
 app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
+app.use('/prediction', predictionwithsixcategoriesperday);
 
 
 app.listen(3000, () => {

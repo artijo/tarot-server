@@ -2,7 +2,7 @@
 //Ohm
 // import cardDeck from './cardDeck.json' assert {type: 'json'};
 const path = require('path');
-const cardDeck = require('./cardDeck.json');
+const cardDeck = require('../Assets/cardDeck.json');
 const fs = require('fs');
 const getRandom = (excludeNumbers = []) => {
 
