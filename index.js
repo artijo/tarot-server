@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
 
 // import routes here
 const testRoute = require('./Routes/test.js');
@@ -30,4 +32,12 @@ app.use('/prediction', predictionwithsixcategoriesperday);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
+  // connect to MongoDB
+  mongoose.connect('mongodb://localhost:27017/tarot')
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+      console.log('Error connecting to MongoDB');
+    });
 });
