@@ -7,6 +7,6 @@ const router = express.Router();
 const { randomTarotCard ,getPicture} = require('../Controllers/randomCardController');
 
 router.get('/random',randomTarotCard)
-router.get('/tarotCardImage/:imageName', getPicture);
+router.get('/tarotCardImage/:img/:deck/:imageName', getPicture);
 
 module.exports = router
