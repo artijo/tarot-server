@@ -36,10 +36,8 @@ const getRandom = (excludeNumbers = []) => {
 }
 
 const randomTarotCard = (req, res) => {
-    const excludeCards = [2,4,6,8,10];
-    const randomCard = getRandom(excludeCards);
-    res.send(randomCard); 
-    
+    const randomCard = getRandom([]);
+    res.send(randomCard);     
 };
 
 
