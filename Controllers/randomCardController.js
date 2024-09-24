@@ -46,7 +46,7 @@ const randomTarotCard = (req, res) => {
 const imagePath = path.join(__dirname, '../public/img/deck');
 
 const getPicture = (req, res) => {
-    const imageName = req.params.imageName + ".jpg";
+    const imageName = req.params.imageName;
     const imagePathFull = path.join(imagePath, imageName);
     // res.send({
     //     imageName: imagePathFull    
