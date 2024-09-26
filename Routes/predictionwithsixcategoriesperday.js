@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { Predictions } = require('../Controllers/predictionwithsixcategoriesperdayController');
 
-router.get('/', Predictions);
+router.get('/prediction', Predictions);
 
 module.exports = router
