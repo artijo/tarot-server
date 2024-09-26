@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 // use routes here
 app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
-app.use('/prediction', predictionwithsixcategoriesperday);
+app.use('/sixcategory', predictionwithsixcategoriesperday);
 
 
 app.listen(3000, () => {
