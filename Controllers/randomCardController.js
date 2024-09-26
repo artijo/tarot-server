@@ -40,6 +40,15 @@ const randomTarotCard = (req, res) => {
     res.send(randomCard);     
 };
 
+const randomPost = (req,res) => {
+    const body = req.body;
+    const randomCard = getRandom(body.excludeNumbers);
+    if(randomCard === 0){
+        res.send({});
+    }
+    res.send(randomCard);
+}
+
 
 const imagePath = path.join(__dirname, '../public/img/deck');
 
@@ -59,4 +68,4 @@ const getPicture = (req, res) => {
     }); 
 }
 
-module.exports = { randomTarotCard , getPicture};
+module.exports = { randomTarotCard , getPicture, randomPost};
