@@ -30,8 +30,7 @@ app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
 app.use('/prediction', predictionwithsixcategoriesperday);
 app.use('/updatepredict',updatepredict)
-
-
+app.use('/sixcategory', predictionwithsixcategoriesperday);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
