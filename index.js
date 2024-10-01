@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
+const horoscopeZodiac = require('./Routes/horoscopeZodiac');
 
 
 const app = express();
@@ -18,26 +19,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(cors({
-  origin: "http://localhost:5173"
+    origin: "http://localhost:5173"
 }));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.send('Hello World!');
 });
 // use routes here
 app.use('/test', testRoute);
-app.use('/randomTarot',randomCard); // Ohm
+app.use('/randomTarot', randomCard); // Ohm
 app.use('/sixcategory', predictionwithsixcategoriesperday);
+app.use('/horoscopeZodiac', horoscopeZodiac);
 
 
 app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-  // connect to MongoDB
-  mongoose.connect('mongodb://localhost:27017/tarot')
-    .then(() => {
-      console.log('Connected to MongoDB');
-    })
-    .catch((error) => {
-      console.log('Error connecting to MongoDB');
-    });
+    console.log('Server is running on port 3000');
+    // connect to MongoDB
+    mongoose.connect('mongodb://localhost:27017/tarot')
+        .then(() => {
+            console.log('Connected to MongoDB');
+        })
+        .catch((error) => {
+            console.log('Error connecting to MongoDB');
+        });
 });
