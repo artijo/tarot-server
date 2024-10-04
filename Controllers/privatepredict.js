@@ -1,9 +1,10 @@
 const private_predict = require('../Models/Private_predict')
 function InsertAnswer(req, res) {
+    const ans = req.body
     const newAnswer = new private_predict({
         massage:[{
             question:"",
-            asn:"kuy"
+            asn:ans.answer
         }]     
     });
     newAnswer.save().then((result) => {
