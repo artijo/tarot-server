@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 
 // import routes here
@@ -16,6 +17,7 @@ const privatePredict  = require('./Routes/private.js')
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
