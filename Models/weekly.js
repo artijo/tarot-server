@@ -16,5 +16,5 @@ VIRGO:String,
 LIBRA:String,
 SCORPIO:String,
 SAGITARIUS:String
-})
+},{timestamps:true})
 module.exports = mongoose.model('tarotweekly_zodiac',tarotweekly_zodiac);
