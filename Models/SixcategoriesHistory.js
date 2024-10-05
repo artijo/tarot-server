@@ -16,6 +16,6 @@ const sixcategoriesHistorySchema = new Schema({
         education: String,
         travelLuck: String
     }
-});
+},{timestamps:true});
 
 module.exports = mongoose.model('SixcategoriesHistory', sixcategoriesHistorySchema);
