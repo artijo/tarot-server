@@ -68,7 +68,7 @@ function InsertColors(req,res) {
 function deleteColors(req, res) {
     var cid = req.params.id
     colorSchema.findByIdAndDelete(cid).then((result) => {
-        res.json((redirect,'/'))
+        res.send(result)
     }).catch((err)=> console.log(err))
 }
 
