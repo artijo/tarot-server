@@ -1,20 +1,20 @@
 const sixCategories = require("../Assets/sixCategories.json");
 const dailyModel = require("../Models/Datedaily");
+const { getRandomPredictions } = require("../helper/randomPrediction");
+
 function Dailypredictions(req, res) {
   let now = new Date();
   let datename = req.params.datename;
   console.log(datename);
   now.setHours(0, 0, 0, 0);
   now.setDate(now.getDate() + 1);
-  //   console.log(now);
-
   dailyModel
     .find(
       {
         date: {
           $eq: now,
         },
-        datename: datename
+        datename: datename,
       },
       {
         _id: 0,
@@ -33,11 +33,23 @@ function addDailyPredictions(req, res) {
   today.setHours(0, 0, 0, 0);
   today.setDate(today.getDate() + 1);
   let data = req.body;
-  console.log(data);
+  //   console.log(data);
+  let predictiondata = {
+    love: {
+      single: req.body.prediction.love.single,
+      loveCouples: req.body.prediction.love.loveCouples,
+    },
+    career: req.body.prediction.career,
+    finance: req.body.prediction.finance,
+    health: req.body.prediction.health,
+    education: req.body.prediction.education,
+    travelLuck: req.body.prediction.travelLuck,
+  };
+
   const newdailypredictions = new dailyModel({
     datename: data.datename,
     date: data.date,
-    prediction: data.prediction,
+    prediction: predictiondata,
   });
   newdailypredictions
     .save()
@@ -49,4 +61,95 @@ function addDailyPredictions(req, res) {
     });
 }
 
-module.exports = { Dailypredictions, addDailyPredictions };
+function addDailyPredictionsFast(req, res) {
+  let weekly = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    
+  ];
+  let now = new Date();
+  let count = 0;
+  now.setHours(0, 0, 0, 0);
+  now.setDate(now.getDate() + 1);
+  // console.log(weekly);
+  let dailyPredictions = dailyModel
+    .find(
+      {
+        date: {
+          $eq: now,
+        },
+      },
+      {
+        _id: 0,
+      }
+    )
+    .then((predictions) => {
+      if (predictions.length == 0) {
+        weekly.forEach((element) => {
+          let predictiondata = getRandomPredictions();
+          let newdailyPredictions = new dailyModel({
+            datename: element,
+            date: now,
+            prediction: predictiondata,
+          });
+          newdailyPredictions
+            .save()
+            .then((result) => {
+              count++;
+              if (count === weekly.length) {
+                res.send("All predictions saved");
+              }
+            })
+            .catch((err) => {
+              res.send(err);
+            });
+        });
+      } else {
+        let datetocreatedata = [];
+
+        predictions.forEach(element => {
+          datetocreatedata.push(element.datename)
+        });
+
+        let difference = weekly.filter(diff=>!datetocreatedata.includes(diff))
+        console.log(difference);
+        if(difference.length == 0) {
+          res.send("All predictions are already saved");
+        }else{
+          difference.forEach((element) => {
+            let predictiondata = getRandomPredictions();
+            let newdailyPredictions = new dailyModel({
+              datename: element,
+              date: now,
+              prediction: predictiondata,
+            });
+            newdailyPredictions
+             .save()
+             .then((result) => {
+                count++;
+                if (count === difference.length) {
+                  res.send("All predictions saved");
+                }
+              })
+             .catch((err) => {
+                res.send(err);
+              });
+          });
+        }
+
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+}
+module.exports = {
+  Dailypredictions,
+  addDailyPredictions,
+  addDailyPredictionsFast,
+};

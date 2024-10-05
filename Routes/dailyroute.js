@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { Dailypredictions,addDailyPredictions } = require('../Controllers/predicdaily');
+const { Dailypredictions,addDailyPredictions,addDailyPredictionsFast} = require('../Controllers/predicdaily');
 
-router.post('/predicdaily/:datename',Dailypredictions);
+router.get('/predicdaily/:datename',Dailypredictions);
 router.post('/addpredicdaily',addDailyPredictions);
+router.post('/addpredicdailyfast',addDailyPredictionsFast);
 
 module.exports = router
