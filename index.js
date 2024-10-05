@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
-
+const colorRoute = require('./Routes/colorRoutes.js');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
 app.use('/prediction', predictionwithsixcategoriesperday);
-
+app.use('/color', colorRoute);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
