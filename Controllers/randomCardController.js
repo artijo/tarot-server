@@ -3,52 +3,49 @@
 // import cardDeck from './cardDeck.json' assert {type: 'json'};
 const TarotCard = require('../Models/TarotCard');
 const path = require('path');
-const cardDeck = require('../Assets/cardDeck.json');
 const fs = require('fs');
-const getRandom = (excludeNumbers = []) => {
 
-    // อันเก่า
-    // let oldDeckCard = cardDeck;
-    let oldDeck = Array.from({length:cardDeck.length}, (_,x) => x);
-    
+const getCardDeck = async () => {
+    try {
+        const result = await TarotCard.find();
+        const tarot_cardDeck = result.map(card => card);
+        return tarot_cardDeck;
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+};
 
-    //อันใหม่
-    let newDeck;
-    newDeck =  oldDeck.filter(number => !excludeNumbers.includes(number));
+const getRandom = async (excludeNumbers = []) => {
+    const cardDeck = await getCardDeck();
 
-    // console.log(newDeck)
+    let oldDeck = Array.from({ length: cardDeck.length }, (_, x) => x);
 
-    if(newDeck.length === 0){
+    let newDeck = oldDeck.filter(number => !excludeNumbers.includes(number));
+
+    if (newDeck.length === 0) {
         return 0;
     }
 
     const randomIndex = Math.floor(Math.random() * newDeck.length);
     const randomNumber = newDeck[randomIndex];
 
-    for(let i = 0; i < cardDeck.length ; i++){
+    for (let i = 0; i < cardDeck.length; i++) {
         let indexOfDeckCard = cardDeck[i].number;
-        // console.log(indexOfDeckCard)
-        if(indexOfDeckCard == randomNumber){
-            // console.log(cardDeck[i])
-            return cardDeck[i]; //Return ค่าที่สุ่มได้
+        if (indexOfDeckCard === randomNumber) {
+            return cardDeck[i];
         }
     }
- 
-}
-
-const randomTarotCard = (req, res) => {
-    const randomCard = getRandom([]);
-    res.send(randomCard);     
 };
 
-const randomPost = (req,res) => {
+const randomTarotCard = async (req, res) => {
     const body = req.body;
-    const randomCard = getRandom(body.excludeNumbers);
-    if(randomCard === 0){
-        res.send({});
+    const randomCard = await getRandom(body.excludeNumbers);
+    if (randomCard === 0) {
+        return res.send({}); 
     }
     res.send(randomCard);
-}
+};
 
 
 const imagePath = path.join(__dirname, '../public/img/deck');
@@ -56,9 +53,6 @@ const imagePath = path.join(__dirname, '../public/img/deck');
 const getPicture = (req, res) => {
     const imageName = req.params.imageName;
     const imagePathFull = path.join(imagePath, imageName);
-    // res.send({
-    //     imageName: imagePathFull    
-    // })
 
     fs.access(imagePathFull, fs.constants.F_OK, (err) =>{
         if(err){
@@ -69,4 +63,4 @@ const getPicture = (req, res) => {
     }); 
 }
 
-module.exports = { randomTarotCard , getPicture, randomPost};
+module.exports = { randomTarotCard , getPicture};

@@ -4,10 +4,14 @@ const express = require('express');
 const router = express.Router();
 
 //Controller
-const { randomTarotCard ,getPicture, randomPost} = require('../Controllers/randomCardController');
+const { randomTarotCard ,getPicture} = require('../Controllers/randomCardController');
 
-router.post('/',randomTarotCard)
+
 router.get('/tarotCardImage/:img/:deck/:imageName', getPicture);
-router.post('/randomPost',randomPost)
+// router.get('/test',testMoogoose);
+
+
+router.post('/randomPost',randomTarotCard);
+// router.post('/',randomTarotCard)
 
 module.exports = router
