@@ -10,6 +10,8 @@ const morgan = require('morgan');
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
+const updatepredict = require('./Routes/Updatepredict.js')
+const privatePredict  = require('./Routes/private.js')
 
 
 const app = express();
@@ -29,7 +31,10 @@ app.get('/', (req, res) => {
 // use routes here
 app.use('/test', testRoute);
 app.use('/randomTarot',randomCard); // Ohm
+app.use('/prediction', predictionwithsixcategoriesperday);
+app.use('/updatepredict',updatepredict)
 app.use('/sixcategory', predictionwithsixcategoriesperday);
+app.use('/private',privatePredict )
 
 
 app.listen(3000, () => {
