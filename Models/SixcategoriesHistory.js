@@ -3,7 +3,6 @@ const User = require('./User');
 const Schema = mongoose.Schema;
 
 const sixcategoriesHistorySchema = new Schema({
-    date: Date,
     User: { type: Schema.Types.ObjectId, ref: 'User' },
     prediction : {
         love: {
@@ -16,6 +15,6 @@ const sixcategoriesHistorySchema = new Schema({
         education: String,
         travelLuck: String
     }
-});
+},{timestamps:true});
 
 module.exports = mongoose.model('SixcategoriesHistory', sixcategoriesHistorySchema);
