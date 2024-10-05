@@ -7,12 +7,13 @@ const morgan = require('morgan');
 
 
 // import routes here
-const testRoute = require('./Routes/test.js');
+// const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
 const updatepredict = require('./Routes/Updatepredict.js')
 const privatePredict  = require('./Routes/private.js')
 const auth = require('./Routes/auth.js');
+const dailyroute = require('./Routes/dailyroute.js');
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use('/randomTarot',randomCard); // Ohm
 app.use('/prediction', predictionwithsixcategoriesperday);
 app.use('/updatepredict',updatepredict)
 app.use('/sixcategory', predictionwithsixcategoriesperday);
+app.use('/daily', dailyroute)
 app.use('/private',privatePredict )
 app.use('/auth',auth)
 
