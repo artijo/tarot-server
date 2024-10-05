@@ -1,30 +1,52 @@
-const sixCategories = require('../Assets/sixCategories.json');
-const dailyModel = require('../Models/Datedaily')
-function Dailypredictions (req,res){
-    const now = new Date()
-    const thailandoffset = 7*60;
-    const thailandnow = new Date(now.getTime()+(thailandoffset*60000))
-    thailandnow.setHours(0,0,0,0)
-    thailandnow.setDate(thailandnow.getDate()+1)
-    console.log(thailandnow);
+const sixCategories = require("../Assets/sixCategories.json");
+const dailyModel = require("../Models/Datedaily");
+function Dailypredictions(req, res) {
+  let now = new Date();
+  let datename = req.params.datename;
+  console.log(datename);
+  now.setHours(0, 0, 0, 0);
+  now.setDate(now.getDate() + 1);
+  //   console.log(now);
 
-    dailyModel.findOne(   
-        {
-            date:{
-                $eq: thailandnow,
-            }
+  dailyModel
+    .find(
+      {
+        date: {
+          $eq: now,
         },
-        {
-            '_id':0
-        }
+        datename: datename
+      },
+      {
+        _id: 0,
+      }
     )
     .then((data) => {
-        res.send(data);
+      res.send(data);
     })
     .catch((error) => {
-        res.send(error);
+      res.send(error);
     });
-
 }
 
-module.exports = { Dailypredictions };
+function addDailyPredictions(req, res) {
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  today.setDate(today.getDate() + 1);
+  let data = req.body;
+  console.log(data);
+  const newdailypredictions = new dailyModel({
+    datename: data.datename,
+    date: data.date,
+    prediction: data.prediction,
+  });
+  newdailypredictions
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+}
+
+module.exports = { Dailypredictions, addDailyPredictions };

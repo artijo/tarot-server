@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const User = require('./User');
 
 const Schema = mongoose.Schema;
 
 const datedailySchema = new Schema({
+    datename:String,
     date:Date,
-    prediction:String
+    prediction:String,
+
 })
 
 module.exports = mongoose.model('datedailies', datedailySchema);
