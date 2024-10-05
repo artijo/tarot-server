@@ -7,7 +7,7 @@ const morgan = require('morgan');
 
 
 // import routes here
-// const testRoute = require('./Routes/test.js');
+const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
 const updatepredict = require('./Routes/Updatepredict.js')
