@@ -7,5 +7,5 @@ const privateSchema = new Schema({
         { question:String,
         asn:String
         }]
-})
+},{timestamps:true})
 module.exports = mongoose.model('privatepredict', privateSchema);
