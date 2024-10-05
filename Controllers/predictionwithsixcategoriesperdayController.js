@@ -36,4 +36,11 @@ function getPredictionByUser(req, res) {
     });
 }
 
-module.exports = { Predictions, createPrediction, getPredictionByUser };
+function deletePrediction(req, res) {
+    const { predictionId } = req.body;
+    sixcategoriesHistoryModel.findByIdAndDelete(predictionId).then((prediction) => {
+        res.json(prediction);
+    });
+}
+
+module.exports = { Predictions, createPrediction, getPredictionByUser, deletePrediction };

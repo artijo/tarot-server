@@ -5,5 +5,5 @@ const {InsertAnswer,getAll,Insertquestion} = require('../Controllers/privatepred
 
 router.post('/insertans',InsertAnswer)
 router.post('/insertquestion',Insertquestion)
-router.get('/getAll',getAll)
+router.post('/getAll',getAll)
 module.exports = router
