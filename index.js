@@ -12,6 +12,7 @@ const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
 const updatepredict = require('./Routes/Updatepredict.js')
 const privatePredict  = require('./Routes/private.js')
+const auth = require('./Routes/auth.js');
 
 
 const app = express();
@@ -35,12 +36,18 @@ app.use('/prediction', predictionwithsixcategoriesperday);
 app.use('/updatepredict',updatepredict)
 app.use('/sixcategory', predictionwithsixcategoriesperday);
 app.use('/private',privatePredict )
+app.use('/auth',auth)
+
 
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
   // connect to MongoDB
-  mongoose.connect('mongodb://localhost:27017/tarot')
+  mongoose.connect('mongodb://mongo:ItLoytZwNHmWsivyoRMQejFgpwcNkdCz@autorack.proxy.rlwy.net:23641',{
+  dbName: 'tarot',
+  retryWrites: true,
+  w: "majority"
+})
     .then(() => {
       console.log('Connected to MongoDB');
     })
