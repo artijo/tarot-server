@@ -1,6 +1,7 @@
 
 //Ohm
 // import cardDeck from './cardDeck.json' assert {type: 'json'};
+const TarotCard = require('../Models/TarotCard');
 const path = require('path');
 const cardDeck = require('../Assets/cardDeck.json');
 const fs = require('fs');
