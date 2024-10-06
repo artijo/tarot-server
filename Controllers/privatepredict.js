@@ -73,12 +73,28 @@ async function answerQuesion(req, res) {
 
 
 async function getallPrivatePrediction(req, res) {
+    //get with populate user
     try {
-        Private_predict.find().then((result) => {
-            res.send(result);
-        }).catch((error) => {
-            res.send(error);
+        const result = await private_predict.find().populate('User');
+        res.send(result);
+    }
+    catch (err) {
+        console.error("Error occurred:", err);
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+    }
+}
+
+async function getallPrivatePredictionbyUser(req, res) {
+    const {email} = req.query;
+    try {
+        const userdata = await User.findOne({
+            email: email
         });
+        // console.log(userdata);
+        const result = await private_predict.find({
+            User: userdata._id
+        });
+        res.send(result);
     }
     catch (err) {
         console.error("Error occurred:", err);
@@ -111,4 +127,4 @@ function Insertquestion(req, res) {
     })
    
 }
-module.exports = {InsertAnswer, getAll,Insertquestion, getallPrivatePrediction, answerQuesion};
+module.exports = {InsertAnswer, getAll,Insertquestion, getallPrivatePrediction, answerQuesion, getallPrivatePredictionbyUser};
