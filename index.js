@@ -5,42 +5,42 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-
 // import routes here
 const testRoute = require('./Routes/test.js');
 const randomCard = require('./Routes/randomCard.js'); //Ohm
 const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcategoriesperday.js');
+const horoscopeZodiac = require('./Routes/horoscopeZodiac');
+const colorRoute = require('./Routes/colorRoutes.js');
 const updatepredict = require('./Routes/Updatepredict.js')
 const privatePredict  = require('./Routes/private.js')
 const auth = require('./Routes/auth.js');
 const dailyroute = require('./Routes/dailyroute.js');
-
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.use(cors({
-  origin: "http://localhost:5173"
+    origin: "http://localhost:5173"
 }));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.send('Hello World!');
 });
 // use routes here
 app.use('/test', testRoute);
+app.use('/randomTarot', randomCard); // Ohm
+app.use('/sixcategory', predictionwithsixcategoriesperday);
+app.use('/horoscopeZodiac', horoscopeZodiac);
 app.use('/randomTarot',randomCard); // Ohm
 app.use('/prediction', predictionwithsixcategoriesperday);
+app.use('/color', colorRoute);
 app.use('/updatepredict',updatepredict)
 app.use('/sixcategory', predictionwithsixcategoriesperday);
 app.use('/daily', dailyroute)
 app.use('/private',privatePredict )
 app.use('/auth',auth)
-
-
 
 
 
