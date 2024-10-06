@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-const User = require('./User');
+
 const Schema = mongoose.Schema;
 
-const sixcategoriesHistorySchema = new Schema({
-    User: { type: Schema.Types.ObjectId, ref: 'User' },
-    prediction : {
+const datedailySchema = new Schema({
+    datename:String,
+    date:Date,
+    prediction:{
         love: {
             single: String,
             loveCouples: String
@@ -14,7 +15,8 @@ const sixcategoriesHistorySchema = new Schema({
         health: String,
         education: String,
         travelLuck: String
-    }
-},{timestamps:true});
+    },
 
-module.exports = mongoose.model('SixcategoriesHistory', sixcategoriesHistorySchema);
+},{timestamps:true})
+
+module.exports = mongoose.model('datedailies', datedailySchema);
