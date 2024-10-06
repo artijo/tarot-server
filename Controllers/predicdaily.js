@@ -80,16 +80,16 @@ function addDailyPredictionsFast(req, res) {
   now.setDate(now.getDate() + 1);
   // console.log(weekly);
   if (Object.keys(req.body).length !== 0) {
-    console.log(req.body.date,"herrrrrrrrrrrr");
+    // console.log(req.body.date,"herrrrrrrrrrrr");
     
     var dateinput = new Date(req.body.date);
     dateinput.setHours(0, 0, 0, 0);
     dateinput.setDate(dateinput.getDate()+1);
-    console.log(dateinput);
+    // console.log(dateinput);
     if (dateinput !== null) {
       if (dateinput.getDate() - now.getDate() >= 0) {
         datetocreatedata = dateinput;
-        console.log("datetocreatedata is created",datetocreatedata);
+        // console.log("datetocreatedata is created",datetocreatedata);
       }
     }
   } else {
