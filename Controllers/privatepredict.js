@@ -1,3 +1,4 @@
+const Private_predict = require('../Models/Private_predict');
 const private_predict = require('../Models/Private_predict')
 const User = require('../Models/User');
 
@@ -45,37 +46,6 @@ function InsertAnswer(req, res) {
 }
 
 
-// function getAll(req,res){
-//     const email = req.body.email
-//     console.log(email)
-//     User.findOne({email:email}
-//         .then((userdata)=>{
-//             if (!userdata){
-//                 console.log("User not found"+email)
-//                 return res.status(404).json({ message: 'User not found' });
-//             }
-//             console.log("Found",userdata.email)
-//             return private_predict.findOne({User:userdata._id}).sort({ createdAt: -1 })
-//         })
-//         .then((predict)=>{
-//             if (!predict){
-//                 console.log("Not Found Predict")
-//                 return res.status(404).json({ message: 'Predict not found' });
-//             }
-//             return private_predict.findOne({User:userdata._id})
-//         })
-//         .then((finalpredict)=>{
-//             if (!finalpredict){
-//                 console.log("Not Found Predict")
-//                 return res.status(404).json({ message: 'Predict not found' });
-//             }
-//             res.send(finalpredict)
-//         })
-//         .catch((err)=>{
-//             console.log(err)
-//         })
-//     )
-// }
 async function getAll(req, res) {
     try {
         const email = req.body.email;
@@ -83,6 +53,34 @@ async function getAll(req, res) {
         const predict = await private_predict.findOne({ User:userdata._id}).sort({createdAt:-1});
         res.send(predict);
     } catch (err) {
+        console.error("Error occurred:", err);
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+    }
+}
+
+async function answerQuesion(req, res) {
+    const {_id , answer} = req.body;
+    console.log(_id, answer);
+    try {
+        const result = await private_predict.findByIdAndUpdate(_id, { $set: { "massage.0.asn": answer } }, { new: true });
+        res.send(result);
+    }
+    catch (err) {
+        console.error("Error occurred:", err);
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+    }
+}
+
+
+async function getallPrivatePrediction(req, res) {
+    try {
+        Private_predict.find().then((result) => {
+            res.send(result);
+        }).catch((error) => {
+            res.send(error);
+        });
+    }
+    catch (err) {
         console.error("Error occurred:", err);
         res.status(500).json({ message: 'An error occurred', error: err.message });
     }
@@ -113,4 +111,4 @@ function Insertquestion(req, res) {
     })
    
 }
-module.exports = {InsertAnswer, getAll,Insertquestion};
+module.exports = {InsertAnswer, getAll,Insertquestion, getallPrivatePrediction, answerQuesion};
