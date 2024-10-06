@@ -13,6 +13,7 @@ const predictionwithsixcategoriesperday = require('./Routes/predictionwithsixcat
 const updatepredict = require('./Routes/Updatepredict.js')
 const privatePredict  = require('./Routes/private.js')
 const auth = require('./Routes/auth.js');
+const dailyroute = require('./Routes/dailyroute.js');
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use('/randomTarot',randomCard); // Ohm
 app.use('/prediction', predictionwithsixcategoriesperday);
 app.use('/updatepredict',updatepredict)
 app.use('/sixcategory', predictionwithsixcategoriesperday);
+app.use('/daily', dailyroute)
 app.use('/private',privatePredict )
 app.use('/auth',auth)
 
