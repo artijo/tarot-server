@@ -1,6 +1,8 @@
+const { request } = require("http");
 const sixCategories = require("../Assets/sixCategories.json");
 const dailyModel = require("../Models/Datedaily");
 const { getRandomPredictions } = require("../helper/randomPrediction");
+const { Console } = require("console");
 
 function Dailypredictions(req, res) {
   let now = new Date();
@@ -70,18 +72,34 @@ function addDailyPredictionsFast(req, res) {
     "Thursday",
     "Friday",
     "Saturday",
-    
   ];
   let now = new Date();
   let count = 0;
+  var datetocreatedata;
   now.setHours(0, 0, 0, 0);
   now.setDate(now.getDate() + 1);
   // console.log(weekly);
+  if (Object.keys(req.body).length !== 0) {
+    var dateinput = new Date(req.body.date);
+    dateinput.setHours(0, 0, 0, 0);
+    dateinput.setDate(dateinput.getDate());
+    // console.log(dateinput);
+    if (dateinput !== null) {
+      if (dateinput.getDate() - now.getDate() > 0) {
+        datetocreatedata = dateinput;
+        // console.log("datetocreatedata is created",datetocreatedata);
+      }
+    }
+  } else {
+    datetocreatedata = now
+    console.log("No date input");
+  }
+  
   let dailyPredictions = dailyModel
     .find(
       {
         date: {
-          $eq: now,
+          $eq: datetocreatedata,
         },
       },
       {
@@ -94,9 +112,10 @@ function addDailyPredictionsFast(req, res) {
           let predictiondata = getRandomPredictions();
           let newdailyPredictions = new dailyModel({
             datename: element,
-            date: now,
+            date: datetocreatedata !== null ? datetocreatedata : now,
             prediction: predictiondata,
           });
+          // console.log(newdailyPredictions)
           newdailyPredictions
             .save()
             .then((result) => {
@@ -112,36 +131,36 @@ function addDailyPredictionsFast(req, res) {
       } else {
         let datetocreatedata = [];
 
-        predictions.forEach(element => {
-          datetocreatedata.push(element.datename)
+        predictions.forEach((element) => {
+          datetocreatedata.push(element.datename);
         });
 
-        let difference = weekly.filter(diff=>!datetocreatedata.includes(diff))
-        console.log(difference);
-        if(difference.length == 0) {
+        let difference = weekly.filter(
+          (diff) => !datetocreatedata.includes(diff)
+        );
+        if (difference.length == 0) {
           res.send("All predictions are already saved");
-        }else{
+        } else {
           difference.forEach((element) => {
             let predictiondata = getRandomPredictions();
             let newdailyPredictions = new dailyModel({
               datename: element,
-              date: now,
+              date: datetocreatedata !== null ? datetocreatedata : now,
               prediction: predictiondata,
             });
             newdailyPredictions
-             .save()
-             .then((result) => {
+              .save()
+              .then((result) => {
                 count++;
                 if (count === difference.length) {
                   res.send("All predictions saved");
                 }
               })
-             .catch((err) => {
+              .catch((err) => {
                 res.send(err);
               });
           });
         }
-
       }
     })
     .catch((err) => {
