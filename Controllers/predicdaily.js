@@ -167,6 +167,7 @@ function addDailyPredictionsFast(req, res) {
       res.send(err);
     });
 }
+
 module.exports = {
   Dailypredictions,
   addDailyPredictions,
