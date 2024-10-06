@@ -6,41 +6,47 @@ function testcolor(req, res) {
 
 function InsertColor(req, res) {
     let newcolor = new colorSchema({
-        day: 'TUE',
+        day: 'ส',
         enhance: {
             color_enhance: {
                 color_text: '#ffffff',
-                enhance_color:'blue'
+                enhance_color: 'black',
+                thaicolor: 'สีดำ'
             }
         },
         featured: {
             color_featured: {
                 color_text: '#ffffff',
-                featured_color : 'green'
+                featured_color: 'brown',
+                thaicolor: 'สีน้ำตาล'
             }
         },
         succeed: {
             color_succeed: {
-                color_text: '#000000',
-                succeed_color: 'pink'
+                color_text: '#ffffff',
+                succeed_color: 'blue',
+                thaicolor: 'สีฟ้า'
             }
         },
         fortune: {
             color_fortune: {
                 color_text: '#ffffff',
-                fortune_color:'blue'    
+                fortune_color: 'red',
+                thaicolor: 'สีแดง'
             }
         },
         patron: {
             color_patron: {
-                color_text: '#ffffff',
-                patron_color: 'red'
+                color_text: '#000000',
+                patron_color: 'pink',
+                thaicolor: 'สีชมพู'
             }
         },
         forbidden: {
             color_forbidden: {
-                color_text: '#000000',
-                forbidden_color:'yellow'
+                color_text: '#ffffff',
+                forbidden_color: 'green',
+                thaicolor: 'สีเขียว'
             }
         }
     })
