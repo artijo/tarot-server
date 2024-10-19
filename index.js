@@ -46,12 +46,8 @@ app.use('/auth',auth)
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
-  // connect to MongoDB
-  mongoose.connect('mongodb://mongo:ItLoytZwNHmWsivyoRMQejFgpwcNkdCz@autorack.proxy.rlwy.net:23641',{
-  dbName: 'tarot',
-  retryWrites: true,
-  w: "majority"
-})
+  // connect to MongoDB Localhost
+  mongoose.connect('mongodb://localhost:27017/tarot')
     .then(() => {
       console.log('Connected to MongoDB');
     })
